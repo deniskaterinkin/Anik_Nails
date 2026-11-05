@@ -1,0 +1,879 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Из кресла в методику</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,600;6..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+  :root{
+    --paper:#F5F3F5;
+    --surface:#FFFFFF;
+    --surface-2:#EDE9EE;
+    --ink:#1B1620;
+    --muted:#6E6474;
+    --line:#DCD5DE;
+    --line-soft:#E8E2EA;
+    --accent:#7B2E4E;
+    --accent-soft:#F3E3EA;
+    --good:#2E6B52;
+    --warn:#8C5F12;
+    --bad:#9C3030;
+    --good-bg:#E3F0E9;
+    --warn-bg:#F6EBD6;
+    --bad-bg:#F4E0E0;
+
+    --display:"Bodoni Moda",Georgia,"Times New Roman",serif;
+    --body:"IBM Plex Sans","Helvetica Neue",Arial,sans-serif;
+    --mono:"IBM Plex Mono","SF Mono",Menlo,monospace;
+
+    --col:min(100%,72ch);
+    --wide:min(100%,1140px);
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --paper:#151219;
+      --surface:#1E1924;
+      --surface-2:#272031;
+      --ink:#EDE7EF;
+      --muted:#A095A8;
+      --line:#352D3E;
+      --line-soft:#2B2434;
+      --accent:#E28AA8;
+      --accent-soft:#3A2130;
+      --good:#7CC7A2;
+      --warn:#D9A94B;
+      --bad:#E58B88;
+      --good-bg:#1D3229;
+      --warn-bg:#33280F;
+      --bad-bg:#3A1F20;
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#151219;
+    --surface:#1E1924;
+    --surface-2:#272031;
+    --ink:#EDE7EF;
+    --muted:#A095A8;
+    --line:#352D3E;
+    --line-soft:#2B2434;
+    --accent:#E28AA8;
+    --accent-soft:#3A2130;
+    --good:#7CC7A2;
+    --warn:#D9A94B;
+    --bad:#E58B88;
+    --good-bg:#1D3229;
+    --warn-bg:#33280F;
+    --bad-bg:#3A1F20;
+  }
+
+  *{box-sizing:border-box}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--body);
+    font-size:17px;
+    line-height:1.62;
+    -webkit-font-smoothing:antialiased;
+  }
+  .page{display:flex;flex-direction:column;align-items:center;padding:0 20px 100px}
+  .col{width:var(--col)}
+  .wide{width:var(--wide)}
+
+  /* ---------- header ---------- */
+  header.top{width:var(--wide);padding:56px 0 28px;border-bottom:1px solid var(--line)}
+  .eyebrow{
+    font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 18px;
+  }
+  h1{
+    font-family:var(--display);font-weight:600;
+    font-size:clamp(40px,7vw,74px);line-height:1.02;letter-spacing:-.015em;
+    margin:0 0 18px;text-wrap:balance;
+  }
+  .lede{font-size:20px;line-height:1.5;color:var(--muted);max-width:60ch;margin:0 0 30px}
+  .lede b{color:var(--ink);font-weight:600}
+  .factbar{
+    display:flex;flex-wrap:wrap;gap:0;border-top:1px solid var(--line-soft);
+  }
+  .fact{
+    flex:1 1 150px;padding:14px 18px 14px 0;border-right:1px solid var(--line-soft);
+  }
+  .fact:last-child{border-right:0}
+  .fact dt{font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin:0 0 4px}
+  .fact dd{margin:0;font-family:var(--display);font-size:26px;font-weight:600;font-variant-numeric:tabular-nums}
+  .fact dd span{font-family:var(--body);font-size:13px;font-weight:400;color:var(--muted);display:block;line-height:1.35;margin-top:2px}
+
+  /* ---------- nav ---------- */
+  nav.toc{
+    position:sticky;top:0;z-index:20;width:100%;display:flex;justify-content:center;
+    background:color-mix(in srgb,var(--paper) 88%,transparent);
+    backdrop-filter:blur(8px);border-bottom:1px solid var(--line-soft);margin-bottom:8px;
+  }
+  .toc-inner{width:var(--wide);display:flex;gap:2px;overflow-x:auto;padding:9px 0;scrollbar-width:thin}
+  .toc a{
+    flex:none;font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;text-decoration:none;
+    color:var(--muted);padding:5px 10px;border-radius:2px;white-space:nowrap;
+  }
+  .toc a:hover{color:var(--accent);background:var(--accent-soft)}
+  .toc a:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+
+  /* ---------- sections ---------- */
+  section{width:100%;display:flex;flex-direction:column;align-items:center;padding-top:52px}
+  .shead{width:var(--wide);display:flex;gap:16px;align-items:baseline;border-top:2px solid var(--ink);padding-top:12px;margin-bottom:26px}
+  .snum{font-family:var(--mono);font-size:12px;font-weight:500;color:var(--accent);letter-spacing:.1em;flex:none;padding-top:6px}
+  h2{font-family:var(--display);font-weight:600;font-size:clamp(27px,3.6vw,38px);line-height:1.12;letter-spacing:-.01em;margin:0;text-wrap:balance}
+  h3{font-family:var(--body);font-weight:600;font-size:18px;letter-spacing:-.005em;margin:34px 0 10px}
+  h4{font-family:var(--mono);font-weight:600;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:26px 0 8px}
+  p{margin:0 0 15px}
+  .col > p:last-child{margin-bottom:0}
+  a{color:var(--accent)}
+  strong{font-weight:600}
+  em{font-style:italic}
+
+  ul,ol{margin:0 0 16px;padding-left:20px}
+  li{margin-bottom:7px}
+  ul.tight li,ol.tight li{margin-bottom:4px}
+  .dash{list-style:none;padding-left:0}
+  .dash li{position:relative;padding-left:20px}
+  .dash li::before{content:"—";position:absolute;left:0;color:var(--accent)}
+
+  /* ---------- callouts ---------- */
+  .verdict{
+    border-left:3px solid var(--accent);padding:4px 0 4px 20px;margin:26px 0;
+  }
+  .verdict p{margin:0 0 10px}
+  .verdict p:last-child{margin:0}
+  .verdict .tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:7px}
+  .note{
+    background:var(--surface-2);padding:16px 20px;border-radius:3px;margin:24px 0;font-size:15.5px;
+  }
+  .note p:last-child{margin:0}
+  .note .tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:7px}
+
+  /* ---------- tables ---------- */
+  .scroller{width:var(--wide);overflow-x:auto;margin:8px 0 10px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  table{border-collapse:collapse;width:100%;font-size:14.5px;font-variant-numeric:tabular-nums}
+  th,td{text-align:left;padding:10px 14px 10px 0;vertical-align:top;border-bottom:1px solid var(--line-soft)}
+  th{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:500;padding-top:12px;padding-bottom:10px}
+  tbody tr:last-child td{border-bottom:0}
+  td.num,th.num{text-align:right;padding-right:14px}
+  .rowname{font-weight:600;min-width:190px}
+  .sub{display:block;color:var(--muted);font-weight:400;font-size:13px;line-height:1.4;margin-top:2px}
+  caption{caption-side:bottom;text-align:left;color:var(--muted);font-size:13px;padding-top:10px;line-height:1.5}
+
+  /* score cells */
+  .s{display:inline-block;min-width:26px;text-align:center;padding:2px 6px;border-radius:2px;font-family:var(--mono);font-size:13px;font-weight:500}
+  .s1,.s2,.s3{background:var(--bad-bg);color:var(--bad)}
+  .s4,.s5,.s6{background:var(--warn-bg);color:var(--warn)}
+  .s7,.s8,.s9,.s10{background:var(--good-bg);color:var(--good)}
+  td.total{font-family:var(--display);font-size:20px;font-weight:600}
+  tr.win td{background:var(--accent-soft)}
+  tr.win .rowname::after{content:"рекомендация";display:block;font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:500;margin-top:3px}
+
+  /* ---------- bar chart ---------- */
+  .bars{width:var(--col);display:flex;flex-direction:column;gap:12px;margin:10px 0 6px}
+  .bar{display:grid;grid-template-columns:minmax(140px,34%) 1fr auto;align-items:center;gap:12px}
+  .bar .lab{font-size:14.5px;line-height:1.3}
+  .bar .lab small{display:block;color:var(--muted);font-size:12.5px}
+  .bar .track{height:14px;background:var(--surface-2);border-radius:2px;overflow:hidden}
+  .bar .fill{height:100%;background:var(--accent);border-radius:2px}
+  .bar .fill.q{background:var(--muted);opacity:.5}
+  .bar .val{font-family:var(--mono);font-size:13px;font-weight:500;white-space:nowrap}
+
+  /* ---------- timeline ---------- */
+  .plan{width:var(--col);display:flex;flex-direction:column;gap:0}
+  .step{display:grid;grid-template-columns:112px 1fr;gap:20px;padding:20px 0;border-top:1px solid var(--line-soft)}
+  .step:first-child{border-top:1px solid var(--line)}
+  .step .when{font-family:var(--mono);font-size:12px;letter-spacing:.05em;color:var(--accent);padding-top:3px}
+  .step .when small{display:block;color:var(--muted);letter-spacing:0;margin-top:4px;line-height:1.4}
+  .step h3{margin:0 0 8px;font-size:17px}
+  .step ul{margin:0;padding-left:18px;font-size:15.5px}
+  .step li{margin-bottom:5px}
+
+  /* ---------- misc ---------- */
+  .kicker{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 8px}
+  .stopgrid{width:var(--wide);display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:0 28px}
+  .stop{padding:16px 0;border-top:1px solid var(--line-soft)}
+  .stop b{display:block;font-size:15.5px;margin-bottom:3px}
+  .stop span{font-size:14.5px;color:var(--muted);line-height:1.5}
+  ol.actions{width:var(--col);counter-reset:a;list-style:none;padding:0;margin:0}
+  ol.actions li{counter-increment:a;display:grid;grid-template-columns:38px 1fr;gap:14px;padding:14px 0;border-top:1px solid var(--line-soft);margin:0}
+  ol.actions li::before{content:counter(a,decimal-leading-zero);font-family:var(--mono);font-size:13px;color:var(--accent);padding-top:2px}
+  ol.actions li:first-child{border-top:1px solid var(--line)}
+  footer{width:var(--wide);margin-top:70px;padding-top:22px;border-top:1px solid var(--line);color:var(--muted);font-size:13.5px}
+  footer h4{margin-top:0}
+  footer ul{padding-left:18px;columns:2;column-gap:34px}
+  @media (max-width:640px){
+    body{font-size:16px}
+    .step{grid-template-columns:1fr;gap:8px}
+    footer ul{columns:1}
+    .fact{border-right:0}
+  }
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<div class="page">
+
+<header class="top">
+  <p class="eyebrow">Стратегический разбор · сентябрь 2026 · Anik_nails, Полевской</p>
+  <h1>Из кресла<br>в методику</h1>
+  <p class="lede">Аня уже забрала верх своего рынка руками: <b>1 час</b> на комбинированный маникюр за <b>1&nbsp;800&nbsp;₽</b>, когда салон-конкурент в городе делает то же за <b>два часа</b> и <b>1&nbsp;700&nbsp;₽</b>. Дальше руками растёт максимум на 10–15% в год. Расти можно только одним способом: продать не маникюр, а то, <em>как</em> она его делает.</p>
+  <dl class="factbar">
+    <div class="fact"><dt>Рейтинг Dikidi</dt><dd>5.0<span>486 оценок, 78 отзывов, Dikidi Awards ’25</span></dd></div>
+    <div class="fact"><dt>Цена часа Ани</dt><dd>1 800 ₽<span>верх прайса города</span></dd></div>
+    <div class="fact"><dt>Второй мастер</dt><dd>~30 000 ₽<span>столько даёт Настя в месяц владельцу</span></dd></div>
+    <div class="fact"><dt>Полевской</dt><dd>~60 тыс.<span>жителей, 40–52 км до Екатеринбурга</span></dd></div>
+  </dl>
+</header>
+
+<nav class="toc" aria-label="Разделы">
+  <div class="toc-inner">
+    <a href="#vyvod">01 Вывод</a>
+    <a href="#problema">02 Проблема</a>
+    <a href="#aktivy">03 Активы</a>
+    <a href="#prodavat">04 Что продавать</a>
+    <a href="#strategii">05 7 стратегий</a>
+    <a href="#pochemu">06 Почему гибрид</a>
+    <a href="#oshibki">07 Ошибки гипотезы</a>
+    <a href="#prepod">08 Преподавание и закон</a>
+    <a href="#ucheniki">09 Откуда ученики</a>
+    <a href="#gorod">10 Маленький город</a>
+    <a href="#dengi">11 Финмодель</a>
+    <a href="#pereezd">12 Переезд</a>
+    <a href="#lestnica">13 Лестница</a>
+    <a href="#plan90">14 90 дней</a>
+    <a href="#gody">15 Год и три</a>
+    <a href="#ne">16 Чего не делать</a>
+    <a href="#riski">17 Риски</a>
+    <a href="#shagi">18 10 шагов</a>
+  </div>
+</nav>
+
+<!-- 01 -->
+<section id="vyvod">
+  <div class="shead"><span class="snum">01</span><h2>Краткий вывод</h2></div>
+  <div class="col">
+    <p>Аня — не «хороший мастер, который может вырасти». Она уже лучший ценник и лучшая скорость в своём городе при идеальном рейтинге. Это конец лестницы мастера, а не середина.</p>
+    <p>Её главный актив — не маникюр. Её главный актив — <strong>скорость при качестве</strong>. Это редкое и, что важнее, <em>измеримое</em> преимущество: час против полутора-двух у остальных. Мастер, которого научили работать за 1:10 вместо 1:50, зарабатывает на 30–50% больше в тот же рабочий день. Это единственное, что в бьюти-обучении можно продать не мечтой, а арифметикой.</p>
+    <div class="verdict">
+      <span class="tag">Рекомендуемая траектория</span>
+      <p>Кабинет остаётся и кормит. Поверх него — узкий продукт для <em>действующих</em> мастеров: постановка скорости и чистоты. Рынок — не Полевской, а Екатеринбург и область (40 минут на машине) плюс онлайн-хвост. Через 3 года: 2–3 приёмных дня в неделю, 6–10 учеников в месяц, записанный курс, доход в 2–2,5 раза выше нынешнего и модель, которая переезжает вместе с ней.</p>
+    </div>
+    <p>Обучение здесь — не «потому что модно учить». Это единственное направление, где у неё уже есть <em>доказательство</em> (собственный прайс и таймер), уже есть первый ученик (Настя) и не нужны вложения.</p>
+  </div>
+</section>
+
+<!-- 02 -->
+<section id="problema">
+  <div class="shead"><span class="snum">02</span><h2>Главная проблема текущей модели</h2></div>
+  <div class="col">
+    <p>Доход = часы Ани × ставка часа. Обе переменные уперлись в стену.</p>
+    <ul class="dash">
+      <li><strong>Часы.</strong> Потолок — примерно 150–170 приёмных часов в месяц, и это уже на износ, с руками, спиной и без выходных на семью.</li>
+      <li><strong>Ставка.</strong> Город платит 1 200–1 800 ₽. Выше 2 000–2 200 ₽ в Полевском массового спроса нет — не потому что Аня плохая, а потому что зарплаты такие.</li>
+      <li><strong>Второй мастер не решает.</strong> Настя отдаёт 30% прибыли — это порядка 25–35 тыс. ₽ в месяц владельцу. Чтобы заменить руки Ани, нужно пять таких мастеров, помещение на пять мест и постоянный найм в городе, где сильный мастер уходит открывать свой кабинет через год.</li>
+    </ul>
+    <p>И третья, самая дорогая проблема: <strong>вся ценность привязана к креслу в Полевском</strong>. Рейтинг 5.0 и 486 оценок — актив, который не грузится в чемодан. При переезде обнуляется всё, кроме навыка рук. А навык рук, как выяснится в разделе 12, за границей часто вообще нельзя применить легально.</p>
+  </div>
+</section>
+
+<!-- 03 -->
+<section id="aktivy">
+  <div class="shead"><span class="snum">03</span><h2>Что у Ани уже есть</h2></div>
+  <div class="col">
+    <p>Список нужен не для комплиментов, а чтобы понять, из чего строить. Всё это стоит денег и уже оплачено.</p>
+  </div>
+  <div class="scroller">
+    <table>
+      <thead><tr><th class="rowname">Актив</th><th>Чем подтверждён</th><th>Как работает на новую модель</th></tr></thead>
+      <tbody>
+        <tr><td class="rowname">Скорость при качестве</td><td>1 час на комбинированный маникюр с покрытием при 1 800 ₽; у соседнего салона — 2 часа за 1 700 ₽</td><td>Это и есть предмет обучения. Единственное преимущество, которое можно измерить секундомером</td></tr>
+        <tr><td class="rowname">Репутация</td><td>5.0, 486 оценок, 78 отзывов, Dikidi Awards ’25</td><td>Доказательство для учеников. Работает только в РФ и только онлайн-ссылкой</td></tr>
+        <tr><td class="rowname">Опыт передачи навыка</td><td>Настя работает в её кабинете и держит поток (336 оценок против 150 у Ани)</td><td><strong>Аня уже преподаватель</strong>, просто бесплатный и без прайса</td></tr>
+        <tr><td class="rowname">Помещение и оборудование</td><td>Свой кабинет, два рабочих места</td><td>Готовая площадка для индивидуального обучения и съёмки, без аренды</td></tr>
+        <tr><td class="rowname">Поток и сарафан</td><td>Полная запись, клиенты приходят сами</td><td>Позволяет экспериментировать без риска остаться без денег</td></tr>
+        <tr><td class="rowname">География</td><td>40–52 км до Екатеринбурга (1,5 млн человек)</td><td>Настоящий рынок обучения находится в часе езды</td></tr>
+        <tr><td class="rowname">Ресурс мужа</td><td>Опыт упаковки методик, контента, продуктов</td><td>Аня даёт руки и содержание, Денис — структуру и продажу. Это её главное конкурентное отличие от других мастеров</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col">
+    <div class="note">
+      <span class="tag">Переворот, который стоит заметить</span>
+      <p>Настя — это не сотрудница. Это первый ученик и первый кейс. Если она работает по Аниным стандартам и зарабатывает — методика существует и уже проверена на живом человеке. Осталось её записать и назвать.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 04 -->
+<section id="prodavat">
+  <div class="shead"><span class="snum">04</span><h2>Что конкретно продавать</h2></div>
+  <div class="col">
+    <p>Направлений в бьюти-обучении много, маржа у них разная в разы. Сравнение — по деньгам за час Аниного времени, потому что её время и есть дефицит.</p>
+  </div>
+  <div class="bars" role="img" aria-label="Доход за час времени Ани по типам продуктов">
+    <div class="bar"><div class="lab">Маникюр<small>её текущая работа</small></div><div class="track"><div class="fill" style="width:50%"></div></div><div class="val">~1 600 ₽/ч</div></div>
+    <div class="bar"><div class="lab">Индивидуальный день<small>15 000 ₽ за 7 часов</small></div><div class="track"><div class="fill" style="width:66%"></div></div><div class="val">~2 100 ₽/ч</div></div>
+    <div class="bar"><div class="lab">Онлайн-разбор работы<small>60 минут по видео, без материалов</small></div><div class="track"><div class="fill" style="width:94%"></div></div><div class="val">~3 000 ₽/ч</div></div>
+    <div class="bar"><div class="lab">Мини-группа из 3<small>45 000 ₽ за два дня</small></div><div class="track"><div class="fill" style="width:100%"></div></div><div class="val">~3 200 ₽/ч</div></div>
+    <div class="bar"><div class="lab">Курс в записи<small>после продаж — себестоимость часа стремится к нулю</small></div><div class="track"><div class="fill q" style="width:100%"></div></div><div class="val">не ограничен</div></div>
+  </div>
+  <div class="col">
+    <p style="color:var(--muted);font-size:14px">Цены — рабочие гипотезы под уровень Екатеринбурга и области, а не факт. Ориентиры рынка: базовый курс мастера в Екатеринбурге — 20 400 ₽ группой и 57 490 ₽ индивидуально (40 ак. часов).</p>
+
+    <h3>Рейтинг направлений: от лучшего к худшему</h3>
+    <ol class="tight">
+      <li><strong>Индивидуальная постановка скорости и чистоты.</strong> Высокая маржа, максимум обратной связи, генерирует кейсы и контент. Стартовый продукт.</li>
+      <li><strong>Мини-группа 3–4 человека, 1–2 дня.</strong> Лучшая экономика дня. Запускается, когда есть 3 кейса.</li>
+      <li><strong>Онлайн-разбор и месячное сопровождение.</strong> Нет материалов, нет стерилизации, нет географии. Первый по-настоящему переносимый продукт.</li>
+      <li><strong>Записанный мини-курс «маникюр за час».</strong> Нулевая предельная себестоимость, но требует трафика. Делается на втором году, из уже отснятых занятий.</li>
+      <li><strong>Выездной мастер-класс от магазина материалов или бренда.</strong> Чужая аудитория, чужая логистика, её руки. Самый недооценённый канал.</li>
+      <li><strong>Премиальные услуги в кресле:</strong> исправление чужой работы, сложные ногти, коррекция после других мастеров. Быстрый апсейл цены сейчас и бесконечный источник учебного материала.</li>
+      <li><strong>Базовое обучение с нуля.</strong> Самое трудозатратное, самая низкая цена за час, худшая мотивация ученика. И в своём городе это прямое производство конкурентов.</li>
+      <li><strong>Наём мастеров.</strong> Худшая отдача на единицу внимания: ~30 тыс. ₽ в месяц за роль администратора, кадровика и психолога.</li>
+    </ol>
+
+    <div class="note">
+      <span class="tag">Что можно поднять в кресле прямо сейчас</span>
+      <p>Двухуровневый прайс: Аня — 2 000–2 200 ₽ (эксперт, час), Настя — 1 400 ₽ (вход). Это не «повышение цен», а разделение уровней, которое клиент понимает. При 90 приёмах +200 ₽ = +18 тыс. ₽ в месяц без единого лишнего часа. Проверяется за месяц: если ушло меньше 10% клиентов — оставляем.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 05 -->
+<section id="strategii">
+  <div class="shead"><span class="snum">05</span><h2>Семь стратегий, честное сравнение</h2></div>
+  <div class="col">
+    <p>Шкала 1–10, где 10 — хорошо для Ани. «Вложения» и «риск» инвертированы: 10 значит «дёшево» и «безопасно». Итог — среднее, и он <em>не</em> является решением: у чисто цифровой стратегии высокий средний балл при смертельно низкой оценке по привлечению и скорости. Средний балл не платит за квартиру.</p>
+  </div>
+  <div class="scroller">
+    <table>
+      <thead>
+        <tr>
+          <th class="rowname">Стратегия</th>
+          <th class="num">Потолок дохода</th>
+          <th class="num">Маржа</th>
+          <th class="num">Дёшево стартовать</th>
+          <th class="num">Просто запустить</th>
+          <th class="num">Независ. от города</th>
+          <th class="num">Независ. от рук Ани</th>
+          <th class="num">Масштаб</th>
+          <th class="num">Онлайн</th>
+          <th class="num">Переносимость</th>
+          <th class="num">Легко найти клиентов</th>
+          <th class="num">Низкий риск</th>
+          <th class="num">Быстрый результат</th>
+          <th class="num">Итог</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="rowname">A. Сильный локальный кабинет<span class="sub">Максимум из услуги: цены, сложные работы, VIP</span></td>
+          <td class="num"><span class="s s3">3</span></td><td class="num"><span class="s s7">7</span></td><td class="num"><span class="s s9">9</span></td><td class="num"><span class="s s9">9</span></td><td class="num"><span class="s s1">1</span></td><td class="num"><span class="s s1">1</span></td><td class="num"><span class="s s2">2</span></td><td class="num"><span class="s s1">1</span></td><td class="num"><span class="s s2">2</span></td><td class="num"><span class="s s9">9</span></td><td class="num"><span class="s s9">9</span></td><td class="num"><span class="s s10">10</span></td><td class="num total">5,3</td>
+        </tr>
+        <tr>
+          <td class="rowname">B. Салон с командой<span class="sub">Наём 3–5 мастеров, Аня — владелец</span></td>
+          <td class="num"><span class="s s5">5</span></td><td class="num"><span class="s s4">4</span></td><td class="num"><span class="s s3">3</span></td><td class="num"><span class="s s3">3</span></td><td class="num"><span class="s s1">1</span></td><td class="num"><span class="s s5">5</span></td><td class="num"><span class="s s4">4</span></td><td class="num"><span class="s s1">1</span></td><td class="num"><span class="s s2">2</span></td><td class="num"><span class="s s5">5</span></td><td class="num"><span class="s s4">4</span></td><td class="num"><span class="s s3">3</span></td><td class="num total">3,3</td>
+        </tr>
+        <tr>
+          <td class="rowname">C. Локальный преподаватель<span class="sub">Обучение только в Полевском</span></td>
+          <td class="num"><span class="s s3">3</span></td><td class="num"><span class="s s8">8</span></td><td class="num"><span class="s s8">8</span></td><td class="num"><span class="s s7">7</span></td><td class="num"><span class="s s2">2</span></td><td class="num"><span class="s s3">3</span></td><td class="num"><span class="s s2">2</span></td><td class="num"><span class="s s3">3</span></td><td class="num"><span class="s s5">5</span></td><td class="num"><span class="s s3">3</span></td><td class="num"><span class="s s6">6</span></td><td class="num"><span class="s s6">6</span></td><td class="num total">4,7</td>
+        </tr>
+        <tr>
+          <td class="rowname">D. Региональный эксперт<span class="sub">База — Полевской, рынок — Екатеринбург и область, выезды</span></td>
+          <td class="num"><span class="s s7">7</span></td><td class="num"><span class="s s8">8</span></td><td class="num"><span class="s s7">7</span></td><td class="num"><span class="s s6">6</span></td><td class="num"><span class="s s6">6</span></td><td class="num"><span class="s s4">4</span></td><td class="num"><span class="s s6">6</span></td><td class="num"><span class="s s5">5</span></td><td class="num"><span class="s s7">7</span></td><td class="num"><span class="s s6">6</span></td><td class="num"><span class="s s7">7</span></td><td class="num"><span class="s s5">5</span></td><td class="num total">6,2</td>
+        </tr>
+        <tr>
+          <td class="rowname">E. Digital-образование<span class="sub">Курсы, подписка, сообщество, онлайн-наставничество</span></td>
+          <td class="num"><span class="s s8">8</span></td><td class="num"><span class="s s10">10</span></td><td class="num"><span class="s s6">6</span></td><td class="num"><span class="s s3">3</span></td><td class="num"><span class="s s10">10</span></td><td class="num"><span class="s s8">8</span></td><td class="num"><span class="s s9">9</span></td><td class="num"><span class="s s10">10</span></td><td class="num"><span class="s s10">10</span></td><td class="num"><span class="s s2">2</span></td><td class="num"><span class="s s4">4</span></td><td class="num"><span class="s s2">2</span></td><td class="num total">6,8</td>
+        </tr>
+        <tr>
+          <td class="rowname">F. Международная карьера мастером<span class="sub">Переезд и работа руками за границей</span></td>
+          <td class="num"><span class="s s5">5</span></td><td class="num"><span class="s s6">6</span></td><td class="num"><span class="s s2">2</span></td><td class="num"><span class="s s2">2</span></td><td class="num"><span class="s s3">3</span></td><td class="num"><span class="s s1">1</span></td><td class="num"><span class="s s2">2</span></td><td class="num"><span class="s s1">1</span></td><td class="num"><span class="s s3">3</span></td><td class="num"><span class="s s4">4</span></td><td class="num"><span class="s s3">3</span></td><td class="num"><span class="s s1">1</span></td><td class="num total">2,8</td>
+        </tr>
+        <tr class="win">
+          <td class="rowname">G. Гибрид<span class="sub">Кабинет-база + узкая методика + регион + цифровой хвост</span></td>
+          <td class="num"><span class="s s8">8</span></td><td class="num"><span class="s s8">8</span></td><td class="num"><span class="s s8">8</span></td><td class="num"><span class="s s6">6</span></td><td class="num"><span class="s s7">7</span></td><td class="num"><span class="s s6">6</span></td><td class="num"><span class="s s7">7</span></td><td class="num"><span class="s s7">7</span></td><td class="num"><span class="s s8">8</span></td><td class="num"><span class="s s6">6</span></td><td class="num"><span class="s s7">7</span></td><td class="num"><span class="s s7">7</span></td><td class="num total">7,1</td>
+        </tr>
+      </tbody>
+      <caption>Оценки — экспертные, под конкретную ситуацию Ани (небольшой город, нет опыта онлайна, только русский язык, полная запись в кресле). Для мастера из Москвы с блогом на 50 тысяч подписчиков таблица выглядела бы иначе.</caption>
+    </table>
+  </div>
+  <div class="col">
+    <h3>Два усилителя, которые не являются отдельными стратегиями</h3>
+    <p><strong>Преподаватель бренда материалов.</strong> Бренды (Kodi, Patrisa, Vogue Nails, E.Mi и десятки других) держат сети представителей и преподавателей. Бренд даёт поток учеников, площадку и статус, мастер даёт руки и методику. Это самый быстрый способ получить не 5 учеников, а 50 — но входить туда нужно с готовой узкой темой и кейсами, иначе ты просто ещё один мастер с портфолио.</p>
+    <p><strong>Аренда кресла вместо найма.</strong> Если Аня сокращает свой приём, кабинет должен кормить себя сам. Мастер платит фиксированную аренду (условно 15–20 тыс. ₽ в месяц) и работает на своих материалах — вместо процента и роли начальницы. Доход становится предсказуемым, управленческое время падает почти до нуля. Настя может остаться на проценте как ученица и ассистент, а второе место сдаваться.</p>
+  </div>
+</section>
+
+<!-- 06 -->
+<section id="pochemu">
+  <div class="shead"><span class="snum">06</span><h2>Почему гибрид, а не «чистый онлайн» и не салон</h2></div>
+  <div class="col">
+    <p>По средним баллам digital выглядит лучше всего. Но у Ани нет ни одного из ресурсов, на которых digital работает: нет аудитории, нет опыта онлайна, нет свободного времени и нет привычки к публичности. Стартовать с онлайн-курса — это 6–12 месяцев работы до первой продажи, и большинство мастеров ломается на этом отрезке.</p>
+    <p>Гибрид выигрывает по одной причине: <strong>каждый его шаг окупается в тот же месяц и одновременно строит следующий</strong>.</p>
+    <ul class="dash">
+      <li>Индивидуальный день = деньги сегодня + кейс + отснятый материал для будущего курса.</li>
+      <li>Мини-группа = деньги + отзывы + проверка программы на разных руках.</li>
+      <li>Выезд в Екатеринбург = деньги + новая география + контакты.</li>
+      <li>Записанный курс появляется на втором году сам, из уже снятого, а не как «проект с нуля».</li>
+    </ul>
+    <p>Салон-с-командой проигрывает жёстче всего: он требует денег, помещения и внимания <em>сейчас</em>, отдаёт ~30 тыс. ₽ с мастера и не создаёт ни одного переносимого актива. Это не ступень к экспертности. Это соседняя лестница, приставленная к той же стене, только тяжелее.</p>
+  </div>
+</section>
+
+<!-- 07 -->
+<section id="oshibki">
+  <div class="shead"><span class="snum">07</span><h2>Где твоя гипотеза ошибается</h2></div>
+  <div class="col">
+    <p>Гипотеза в целом верная — направление угадано. Ошибки в порядке шагов, а порядок здесь стоит дороже направления.</p>
+
+    <h4>Ошибка 1 — уровни идут не подряд</h4>
+    <p>В твоей схеме «команда мастеров» стоит между кабинетом и обучением. На деле это параллельная ветка, которая жрёт ровно тот ресурс, что нужен обучению: деньги, помещение, внимание, нервы. Считаем: 4 ученика в месяц по 15 тыс. ₽ = 60 тыс. ₽ за четыре рабочих дня. Столько же дают два наёмных мастера — за тридцать дней управления, поиска, замен и обид.</p>
+
+    <h4>Ошибка 2 — обучение как «уровень 3», до которого надо дорасти</h4>
+    <p>Первый ученик доступен на этой неделе, и он уже сидит в её кабинете. Ждать не нужно ничего.</p>
+
+    <h4>Ошибка 3 — личный бренд как предпосылка</h4>
+    <p>Бренд — не вход, а следствие. Сначала три результата учеников с цифрами «было 1:50 — стало 1:15», потом контент об этом. Блог без результатов — это блог ни о чём, и Аня это чувствует, поэтому и не начинает.</p>
+
+    <h4>Ошибка 4 — «обучать» значит «учить с нуля»</h4>
+    <p>Базовое обучение — худший продукт в списке: дешёвый, длинный, конкурентный, с немотивированным учеником. И в маленьком городе это буквально производство собственных конкурентов. Повышение квалификации действующих мастеров — короче, дороже, безопаснее, и покупатель платит из выручки, а не из мечты.</p>
+
+    <h4>Ошибка 5 — строить под переезд, который пока гипотеза</h4>
+    <p>Ты сам сказал: скорее гипотеза, чем план. Значит закладываться под неё деньгами нельзя. Правильный фильтр другой: <strong>каждый шаг должен окупаться в Полевском и при этом переноситься</strong>. Все шаги в плане ниже такие. Это не жертва — это просто выбор из двух одинаково дешёвых вариантов в пользу переносимого.</p>
+
+    <h4>Ошибка 6 — «международная карьера» как отдельная вершина</h4>
+    <p>Русскоязычный рынок мастеров огромен и не требует языка. Мастера с русским работают в Германии, Израиле, ОАЭ, Грузии, Турции, Индонезии — и они уже её потенциальные ученики. Международность приходит не через английский, а через онлайн-продукт на русском.</p>
+
+    <h4>Ошибка 7 — Instagram и VK как равные площадки</h4>
+    <p>С 1 сентября 2025 года любая реклама в Instagram и Facebook в России запрещена, штраф для ИП — 4–20 тыс. ₽ за каждую публикацию, и это касается не только таргета, но и промокодов, призывов и скидок в постах. Instagram остаётся заблокирован, через VPN туда ходит 20–30 млн человек вместо прежних 80. Рабочие каналы внутри страны — VK (94,9 млн MAU) и Telegram. Instagram оставить как витрину портфолио, особенно для тех, кто уже за границей, но продавать оттуда нельзя.</p>
+  </div>
+</section>
+
+<!-- 08 -->
+<section id="prepod">
+  <div class="shead"><span class="snum">08</span><h2>Преподавательская модель: что правда, а что страх</h2></div>
+  <div class="col">
+    <p>Аня считает, что сначала обязательно нужно пройти обучение для преподавателей. Рынок этот страх активно продаёт: инструкторские курсы стоят 86–193 тыс. ₽ (например, у Nail Couture — 138 тыс. ₽ онлайн и 193,5 тыс. ₽ с очной частью). Проверяем по закону.</p>
+
+    <h3>Юридический минимум в России</h3>
+    <ul class="dash">
+      <li><strong>Лицензия на образовательную деятельность не нужна</strong> индивидуальному предпринимателю, который обучает <em>лично</em>, без привлечения других педагогических работников. Это прямая норма закона «Об образовании», а не серая зона.</li>
+      <li><strong>Педагогическое образование не требуется.</strong> Ни закон, ни рынок его не спрашивают: школы берут инструкторов по опыту от 2 лет и качеству работ.</li>
+      <li><strong>Сертификат ученику выдавать можно</strong> — свой, «установленного образца»: ФИО, название курса, часы, дата, подпись, номер. Это законно. Нельзя только выдавать документы <em>государственного</em> образца и удостоверения о повышении квалификации — для них нужна лицензия и организация.</li>
+      <li><strong>Договор и акт с учеником обязательны</strong> — одна страница, защищает от претензий «меня не тому научили».</li>
+      <li><strong>Помещение</strong> — те же санитарные требования, что уже соблюдаются для кабинета.</li>
+    </ul>
+
+    <h3>Чем отличаются форматы</h3>
+  </div>
+  <div class="scroller">
+    <table>
+      <thead><tr><th class="rowname">Формат</th><th>Что это на деле</th><th>Нужна лицензия</th><th>Документ ученику</th></tr></thead>
+      <tbody>
+        <tr><td class="rowname">Авторский мастер-класс</td><td>1 день, одна тема, показ + отработка</td><td>Нет</td><td>Сертификат участника (свой)</td></tr>
+        <tr><td class="rowname">Наставничество / сопровождение</td><td>Разборы работ, чат, обратная связь по видео</td><td>Нет</td><td>Ничего не требуется</td></tr>
+        <tr><td class="rowname">Повышение квалификации (в бытовом смысле)</td><td>2–3 дня, программа для действующих мастеров</td><td>Нет, пока учит лично</td><td>Сертификат свой</td></tr>
+        <tr><td class="rowname">Удостоверение о повышении квалификации (ДПО)</td><td>Официальная программа не менее 16 часов</td><td><strong>Да</strong></td><td>Удостоверение установленного государством образца</td></tr>
+        <tr><td class="rowname">Профессиональное обучение / школа</td><td>Программа профобучения, наёмные педагоги, набор групп</td><td><strong>Да</strong></td><td>Свидетельство о профессии</td></tr>
+        <tr><td class="rowname">Онлайн-курс в записи</td><td>Видеоматериалы + доступ</td><td>Нет, если без аттестации и госдокумента</td><td>Сертификат свой</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col">
+    <h3>Разложим по обязательности</h3>
+    <p><strong>Обязательно сейчас:</strong> статус (самозанятая или ИП; при регулярном обучении — ИП, код ОКВЭД 85.41), договор + акт с учеником, соблюдение санитарных норм в кабинете.</p>
+    <p><strong>Желательно в течение года:</strong> своя программа на бумаге — темы, часы, измеримый результат (это нужно не проверяющим, а для продажи); свой бланк сертификата; штатив с камерой над руками; страница/канал, куда можно отправить человека.</p>
+    <p><strong>Можно потом или вообще не нужно:</strong> инструкторский курс за 86–193 тыс. ₽; лицензия на образовательную деятельность; любые «дипломы преподавателя».</p>
+    <div class="verdict">
+      <span class="tag">Прямой ответ на её вопрос</span>
+      <p>Специальное образование преподавателя ей <strong>не нужно</strong> — ни по закону, ни для рынка. Инструкторский курс имеет смысл покупать не как разрешение начать, а как ускоритель — когда уже есть 20+ учеников, деньги на него и понимание, зачем: нетворк, доступ к бренду, чужая методика подачи. Сейчас это была бы покупка спокойствия за 150 тысяч рублей.</p>
+      <p>Разрешение преподавать даёт результат ученика, а не бумага. Проверка простая: если Настя работает быстро и чисто — Аня уже преподаватель.</p>
+    </div>
+    <h4>Если переезд всё-таки случится</h4>
+    <p>В большинстве стран частное обучение взрослых (мастер-классы, семинары) не лицензируется — регулируется работа <em>руками</em>, а не обучение. Онлайн-обучение русскоязычной аудитории из-за границы вообще не требует местных разрешений — нужен только легальный способ принимать деньги и платить налоги там, где живёшь.</p>
+  </div>
+</section>
+
+<!-- 09 -->
+<section id="ucheniki">
+  <div class="shead"><span class="snum">09</span><h2>Откуда брать учеников: 5 → 20 → 100</h2></div>
+  <div class="col">
+    <p>Это главный вопрос, и ответ «вести блог» на него не отвечает. Ниже — по этапам, с конкретными источниками и порядком действий.</p>
+
+    <h3>Первые 5 — берутся из уже существующих связей, за 60 дней, без рекламы</h3>
+    <ol class="tight">
+      <li><strong>Настя.</strong> Ученик №1. Два занятия по 3 часа, цель — сократить время на услугу без потери качества, с замером до и после.</li>
+      <li><strong>2–3 знакомых мастера</strong> из города и области, с которыми уже есть отношения. Предложение: бесплатный день постановки в обмен на замер до/после, письменный отзыв и разрешение снимать процесс.</li>
+      <li><strong>Клиентки, которые сами просились «научи меня»</strong> — такие всегда есть. Одна из них станет учеником и приведёт подругу.</li>
+      <li><strong>Мастер из Екатеринбурга</strong> — через знакомых, через чаты, через поставщика.</li>
+    </ol>
+    <p>Цена на этом этапе — ноль или стоимость материалов. Продаётся не обучение, а результат: «через день ты будешь делать ту же работу на 30 минут быстрее». Больше трёх раз бесплатно — нельзя.</p>
+
+    <h3>Первые 20 — месяцы 4–12, четыре канала</h3>
+    <ul class="dash">
+      <li><strong>Магазины материалов — главный и самый недооценённый канал.</strong> У магазина уже есть база мастеров с телефонами и интерес продать больше. Схема: магазин даёт зал и рассылку по базе, Аня — бесплатный мини-МК на 6–10 человек, магазин продаёт материалы, Аня забирает 2–3 заявки на платное обучение. Нужны 2 партнёра: один в Полевском, один в Екатеринбурге.</li>
+      <li><strong>Чаты и группы мастеров в VK и Telegram</strong> — по Екатеринбургу и области, включая барахолки материалов, где мастера сидят плотнее всего. Заходить не с продажей, а с ответами на вопросы и разборами. 5–7 сообществ достаточно.</li>
+      <li><strong>Собственный канал</strong> (Telegram + дубль в VK) — не блог о жизни, а рабочий журнал: замеры, разборы работ, ошибки, «почему у тебя уходит два часа». Два поста в неделю. Один лид-магнит: чек-лист на одну страницу.</li>
+      <li><strong>Услуга «обучение» прямо в Dikidi-профиле</strong> и в объявлениях. Соседний салон КОКОС уже продаёт так обучение визажу — работает.</li>
+      <li><strong>Сарафан от первых пяти.</strong> Каждый довольный ученик приводит примерно 0,5 следующего — это самый дешёвый канал и он появляется сам, но только если есть замеренный результат.</li>
+    </ul>
+
+    <h3>Первые 100 — годы 2–3</h3>
+    <ul class="dash">
+      <li><strong>Выездные дни по области:</strong> Ревда, Первоуральск, Сысерть, Дегтярск, Верхняя Пышма, Каменск-Уральский, Нижний Тагил. Один город — один день — группа 4–6 человек, площадка арендуется у местной студии за 2–3 тыс. ₽.</li>
+      <li><strong>Регулярный день в Екатеринбурге:</strong> раз в две недели, аренда места в студии. Это переводит её из «мастера из Полевского» в «преподавателя, к которому ездят».</li>
+      <li><strong>Партнёрство с брендом материалов.</strong> После 20–30 учеников можно заходить в бренд не просителем, а с готовой темой и кейсами.</li>
+      <li><strong>Онлайн: разборы, сопровождение, записанный курс.</strong> Здесь появляются ученики из других регионов и из-за границы.</li>
+      <li><strong>Выставки и профмероприятия</strong> (Урал, Москва) — не как участник со стендом, а как спикер бесплатной программы. Конкурсы и судейство — по желанию, как статусный, а не денежный актив.</li>
+    </ul>
+
+    <h3>Воронка целиком</h3>
+    <div class="note">
+      <p style="font-family:var(--mono);font-size:14px;line-height:1.9;margin:0">
+        замеры и разборы в канале / мини-МК в магазине<br>
+        &nbsp;&nbsp;↓<br>
+        чек-лист «7 причин, почему маникюр занимает два часа»<br>
+        &nbsp;&nbsp;↓<br>
+        бесплатная диагностика по видео работы — 20 минут<br>
+        &nbsp;&nbsp;↓<br>
+        индивидуальный день постановки — 12–18 тыс. ₽<br>
+        &nbsp;&nbsp;↓<br>
+        мини-группа / месяц сопровождения — 8–15 тыс. ₽<br>
+        &nbsp;&nbsp;↓<br>
+        курс в записи — 5–8 тыс. ₽, продаётся многократно
+      </p>
+    </div>
+    <p>Ключевое звено — <strong>бесплатная диагностика по видео</strong>. Мастер присылает запись своей работы, Аня за 20 минут показывает три места, где теряется время. Это конвертирует лучше любого поста, потому что человек видит свою собственную проблему, а не чужую рекламу.</p>
+  </div>
+</section>
+
+<!-- 10 -->
+<section id="gorod">
+  <div class="shead"><span class="snum">10</span><h2>Полевской: рынок или база?</h2></div>
+  <div class="col">
+    <p>Твоя гипотеза верна, но нуждается в уточнении, и уточнение важнее самой гипотезы.</p>
+    <p><strong>Полевской — не рынок Ани.</strong> Около 60 тысяч жителей, из них женщин активного возраста тысяч 18–20, регулярно делают маникюр процентов 25–35 — то есть весь городской спрос это 5–7 тысяч клиенток на десятки мастеров. Аня уже забрала верхний сегмент. Расти внутри города можно только отбирая клиентов у соседей, по 100–200 ₽ за приём.</p>
+    <p><strong>Но и рынок обучения в Полевском тоже крошечный.</strong> Мастеров в городе, по грубой прикидке, 50–150, а готовых платить за повышение квалификации в год — человек 10–20. Плюс неприятное: обучая их, Аня усиливает собственных конкурентов на своём же рынке услуг. Поэтому «стать преподавателем в Полевском» — это стратегия C с итогом 4,7, и она не работает.</p>
+    <div class="verdict">
+      <span class="tag">Уточнённая формулировка</span>
+      <p>Полевской — это база: дешёвое помещение, оплаченное оборудование, лояльный поток, который кормит эксперименты, и 40 минут до полуторамиллионного Екатеринбурга. Рынок — Екатеринбург и область сейчас, русскоязычный онлайн потом. Не «маленький город как ограничение», а «низкая себестоимость жизни и работы при доступе к большому рынку» — это, на самом деле, преимущество, а не проблема.</p>
+    </div>
+    <p>Практический вывод один и жёсткий: <strong>базовое обучение с нуля в Полевском не проводить вообще</strong>. Повышение квалификации действующих мастеров — проводить кому угодно, они уже конкуренты и в основном из других городов.</p>
+  </div>
+</section>
+
+<!-- 11 -->
+<section id="dengi">
+  <div class="shead"><span class="snum">11</span><h2>Финансовая модель</h2></div>
+  <div class="col">
+    <h4>Допущения — проверить перед тем, как верить цифрам</h4>
+    <ul class="tight" style="font-size:15.5px">
+      <li>Аня: ~90–100 приёмов в месяц, средний чек ~1 700 ₽ → выручка 150–180 тыс. ₽. <em>Требует проверки по записи в Dikidi.</em></li>
+      <li>Настя: ~90 приёмов по ~1 400 ₽ → ~125 тыс. ₽ выручки, Ане достаётся 30% прибыли ≈ 25–35 тыс. ₽.</li>
+      <li>Расходники — 10–15% выручки, аренда и прочее — 15–20 тыс. ₽ в месяц.</li>
+      <li>Итого сейчас: <strong>примерно 150–180 тыс. ₽ дохода в месяц</strong>, из них ~85% создаётся руками Ани.</li>
+      <li>Цены обучения — гипотеза под уровень Екатеринбурга, а не факт. Первый платный ученик и покажет, права ли она.</li>
+      <li>Инфляция не заложена: все суммы в сегодняшних рублях.</li>
+    </ul>
+  </div>
+
+  <div class="col"><h3>Консервативный: ничего не менять</h3></div>
+  <div class="scroller">
+    <table>
+      <thead><tr><th class="rowname">Горизонт</th><th class="num">Клиентов/мес</th><th class="num">Учеников/мес</th><th class="num">Мастеров</th><th class="num">Часов Ани/мес</th><th>Источники дохода</th><th class="num">Доход/мес</th></tr></thead>
+      <tbody>
+        <tr><td class="rowname">6 месяцев</td><td class="num">95</td><td class="num">0</td><td class="num">1</td><td class="num">160</td><td>Услуги + процент с Насти</td><td class="num">170 тыс. ₽</td></tr>
+        <tr><td class="rowname">1 год</td><td class="num">95</td><td class="num">0–1</td><td class="num">1</td><td class="num">160</td><td>То же, цены +10%</td><td class="num">185 тыс. ₽</td></tr>
+        <tr><td class="rowname">2 года</td><td class="num">95</td><td class="num">1</td><td class="num">1–2</td><td class="num">160</td><td>То же</td><td class="num">205 тыс. ₽</td></tr>
+        <tr><td class="rowname">3 года</td><td class="num">90</td><td class="num">1</td><td class="num">2</td><td class="num">155</td><td>То же</td><td class="num">225 тыс. ₽</td></tr>
+      </tbody>
+      <caption>Реальный рост здесь близок к нулю: +10% в год примерно равно инфляции. Плюс накапливается физический износ рук и спины. Это не «стабильность», это медленное сползание.</caption>
+    </table>
+  </div>
+
+  <div class="col"><h3>Реалистичный: рекомендуемая траектория</h3></div>
+  <div class="scroller">
+    <table>
+      <thead><tr><th class="rowname">Горизонт</th><th class="num">Клиентов/мес</th><th class="num">Учеников/мес</th><th class="num">Мастеров</th><th class="num">Часов Ани/мес</th><th>Источники дохода</th><th class="num">Доход/мес</th></tr></thead>
+      <tbody>
+        <tr><td class="rowname">6 месяцев</td><td class="num">95</td><td class="num">1–2</td><td class="num">1</td><td class="num">155</td><td>Услуги 165 + обучение 20</td><td class="num">185 тыс. ₽</td></tr>
+        <tr><td class="rowname">1 год</td><td class="num">85</td><td class="num">3–4</td><td class="num">1</td><td class="num">140</td><td>Услуги 150 + обучение 55 + онлайн 5</td><td class="num">210 тыс. ₽</td></tr>
+        <tr><td class="rowname">2 года</td><td class="num">60</td><td class="num">6–8</td><td class="num">1 + аренда кресла</td><td class="num">100</td><td>Услуги 110 + обучение 120 + онлайн 25</td><td class="num">255 тыс. ₽</td></tr>
+        <tr><td class="rowname">3 года</td><td class="num">40</td><td class="num">8–10</td><td class="num">2 (аренда)</td><td class="num">75</td><td>Услуги 80 + обучение 180 + онлайн 60 + аренда 40</td><td class="num">360 тыс. ₽</td></tr>
+      </tbody>
+      <caption>Главное в этой таблице не сумма, а последняя строка по часам: 75 вместо 160. Доход вырос вдвое, а времени в кресле стало вдвое меньше.</caption>
+    </table>
+  </div>
+
+  <div class="col"><h3>Амбициозный: Аня становится заметным преподавателем</h3></div>
+  <div class="scroller">
+    <table>
+      <thead><tr><th class="rowname">Горизонт</th><th class="num">Клиентов/мес</th><th class="num">Учеников/мес</th><th class="num">Мастеров</th><th class="num">Часов Ани/мес</th><th>Источники дохода</th><th class="num">Доход/мес</th></tr></thead>
+      <tbody>
+        <tr><td class="rowname">6 месяцев</td><td class="num">90</td><td class="num">3</td><td class="num">1</td><td class="num">155</td><td>Услуги 160 + обучение 45</td><td class="num">205 тыс. ₽</td></tr>
+        <tr><td class="rowname">1 год</td><td class="num">70</td><td class="num">6–8</td><td class="num">1</td><td class="num">130</td><td>Услуги 125 + обучение 120 + онлайн 20</td><td class="num">265 тыс. ₽</td></tr>
+        <tr><td class="rowname">2 года</td><td class="num">40</td><td class="num">12–15</td><td class="num">2 (аренда)</td><td class="num">80</td><td>Обучение 220 + онлайн 90 + услуги 75 + аренда 35</td><td class="num">420 тыс. ₽</td></tr>
+        <tr><td class="rowname">3 года</td><td class="num">20</td><td class="num">15–20</td><td class="num">2–3</td><td class="num">50</td><td>Обучение 300 + онлайн 250 + бренд-партнёрство + аренда</td><td class="num">650–750 тыс. ₽</td></tr>
+      </tbody>
+      <caption>Этот сценарий требует того, что не гарантировано: партнёрства с брендом, работающего онлайн-продукта и публичности, к которой Аня пока не готова. Считать его планом нельзя. Считать его невозможным — тоже: именно так росли E.Mi и большинство известных школ, только у них на это ушло 5–8 лет.</caption>
+    </table>
+  </div>
+</section>
+
+<!-- 12 -->
+<section id="pereezd">
+  <div class="shead"><span class="snum">12</span><h2>Что переносится при переезде</h2></div>
+  <div class="col">
+    <p>Переезд у вас пока гипотеза, поэтому этот раздел — не план, а проверка стратегии на прочность. И он даёт неожиданный аргумент.</p>
+    <div class="verdict">
+      <span class="tag">Факт, который меняет расклад</span>
+      <p>В Индонезии — самом вероятном для вас направлении — <strong>иностранцам запрещено работать в бьюти-индустрии</strong>: маникюр, парикмахерские услуги, косметология. Ни на какой визе. Единственное легальное исключение — работать <em>тренером</em>, обучая местный персонал. То есть на Бали руки Ани стоят ноль, а её методика — единственное, что вообще можно применить.</p>
+    </div>
+    <p>Для сравнения: в Германии маникюр — свободное ремесло, достаточно Gewerbeschein, никакой квалификации не требуют. В США нужна лицензия штата: 240–600 учебных часов плюс экзамен, российские документы не признаются автоматически. То есть «просто продолжить работать мастером» — это лотерея, зависящая от страны, и худший из вариантов в трёх случаях из четырёх.</p>
+  </div>
+  <div class="scroller">
+    <table>
+      <thead><tr><th class="rowname">Актив</th><th class="num">Переносится</th><th>Комментарий</th></tr></thead>
+      <tbody>
+        <tr><td class="rowname">База клиентов</td><td class="num"><span class="s s1">0%</span></td><td>Остаётся полностью. Клиент из Полевского не поедет за ней</td></tr>
+        <tr><td class="rowname">Рейтинг Dikidi, отзывы</td><td class="num"><span class="s s1">0%</span></td><td>Сервис локальный, репутация не экспортируется</td></tr>
+        <tr><td class="rowname">Кабинет и оборудование</td><td class="num"><span class="s s2">20%</span></td><td>Продать здесь, купить там. Инструмент можно увезти</td></tr>
+        <tr><td class="rowname">Навык рук</td><td class="num"><span class="s s5">40–60%</span></td><td>Зависит от страны: Германия — да; США — лицензия и экзамен; Индонезия — нельзя вообще</td></tr>
+        <tr><td class="rowname">Методика и материалы курса</td><td class="num"><span class="s s10">100%</span></td><td>Файл. Переезжает мгновенно</td></tr>
+        <tr><td class="rowname">Аудитория в Telegram / VK</td><td class="num"><span class="s s10">100%</span></td><td>Русскоязычные мастера есть везде, включая тех, кто сам уехал</td></tr>
+        <tr><td class="rowname">Ученики и их отзывы</td><td class="num"><span class="s s9">90%</span></td><td>Кейсы работают в любой стране, где говорят по-русски</td></tr>
+        <tr><td class="rowname">Онлайн-продукты</td><td class="num"><span class="s s10">100%</span></td><td>Продаются откуда угодно, вопрос только в приёме платежей</td></tr>
+        <tr><td class="rowname">Партнёрство с брендом</td><td class="num"><span class="s s6">50–70%</span></td><td>Международные бренды сохраняются, локальные — нет</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col">
+    <h3>Пять сценариев на момент переезда</h3>
+    <ul class="dash">
+      <li><strong>Просто мастер.</strong> Начинает с нуля: язык, легализация, поиск клиентов, местный ценник. В Индонезии — не начинает вовсе. Худший вариант.</li>
+      <li><strong>Владелец салона.</strong> Салон не переезжает. Продаётся за копейки — в маленьком городе покупателей на такой бизнес почти нет. Остаётся опыт и немного денег.</li>
+      <li><strong>Известный мастер с личным брендом.</strong> Аудитория едет с ней, но продавать этой аудитории нечего, кроме своих рук, которых в новой стране может не быть права применять. Половина актива простаивает.</li>
+      <li><strong>Преподаватель с методикой.</strong> Едет всё: программа, кейсы, имя в узком кругу. Онлайн-обучение русскоязычных мастеров запускается из любой точки. На Бали — единственный легальный формат.</li>
+      <li><strong>Эксперт + преподаватель + digital + бренд.</strong> Переезд вообще перестаёт быть профессиональным событием. Меняется только часовой пояс.</li>
+    </ul>
+    <p>Максимальную независимость от страны даёт четвёртый и пятый. Оба — та же траектория, которая и без переезда лучшая. В этом её главная ценность: <strong>она не требует ставки на переезд</strong>.</p>
+  </div>
+</section>
+
+<!-- 13 -->
+<section id="lestnica">
+  <div class="shead"><span class="snum">13</span><h2>Лестница: мастер → известный специалист</h2></div>
+  <div class="col">
+    <p>На каждой ступени должен появляться конкретный актив. Не «стать увереннее», а вещь, которую можно показать.</p>
+  </div>
+  <div class="plan">
+    <div class="step">
+      <div class="when">Сейчас<small>ступень 1</small></div>
+      <div>
+        <h3>Сильный мастер</h3>
+        <ul><li>Полная запись, рейтинг 5.0, скорость выше рынка</li><li><strong>Актив:</strong> локальная репутация. Не переносится, не масштабируется</li></ul>
+      </div>
+    </div>
+    <div class="step">
+      <div class="when">0–6 мес<small>ступень 2</small></div>
+      <div>
+        <h3>Мастер с описанной системой</h3>
+        <ul><li>Процесс разложен на шаги, замеры времени, стандарт качества на бумаге</li><li>Настя обучена по этой системе, есть цифра «было — стало»</li><li><strong>Актив:</strong> методика в виде документа и первый кейс</li></ul>
+      </div>
+    </div>
+    <div class="step">
+      <div class="when">6–18 мес<small>ступень 3</small></div>
+      <div>
+        <h3>Наставник</h3>
+        <ul><li>10–20 учеников, у каждого замер до/после и отзыв</li><li>Чек-лист, канал с рабочими разборами, один партнёр-магазин</li><li><strong>Актив:</strong> кейсы и первый повторяемый поток заявок</li></ul>
+      </div>
+    </div>
+    <div class="step">
+      <div class="when">18–30 мес<small>ступень 4</small></div>
+      <div>
+        <h3>Преподаватель</h3>
+        <ul><li>Программа с часами и результатом, свой сертификат, мини-группы</li><li>Регулярные выезды в Екатеринбург и по области</li><li>Первый записанный курс — собран из уже отснятых занятий</li><li><strong>Актив:</strong> продукт, который продаётся без её присутствия</li></ul>
+      </div>
+    </div>
+    <div class="step">
+      <div class="when">2,5–4 года<small>ступень 5</small></div>
+      <div>
+        <h3>Автор методики</h3>
+        <ul><li>У метода есть название и методичка</li><li>Партнёрство с брендом или собственные ассистенты-преподаватели</li><li>Сообщество учеников, которое живёт само</li><li><strong>Актив:</strong> имя, которое ищут по названию, а не по городу</li></ul>
+      </div>
+    </div>
+    <div class="step">
+      <div class="when">4–5 лет<small>ступень 6</small></div>
+      <div>
+        <h3>Известный специалист</h3>
+        <ul><li>Выступления, судейство, приглашения в другие города и страны</li><li>Лицензирование методики другим преподавателям</li><li><strong>Актив:</strong> капитализация — доход, не связанный ни с руками, ни с городом</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 14 -->
+<section id="plan90">
+  <div class="shead"><span class="snum">14</span><h2>План на 90 дней</h2></div>
+  <div class="col">
+    <p>Принцип: ничего не бросаем, ничего не покупаем, каждый шаг — маленький эксперимент с проверяемым результатом. Суммарные вложения за 90 дней — до 15 тыс. ₽ (материалы для бесплатных учеников и штатив). Нагрузка сверх текущей работы — 3–5 часов в неделю.</p>
+  </div>
+  <div class="plan">
+    <div class="step">
+      <div class="when">Недели 1–2<small>измерить</small></div>
+      <div>
+        <h3>Собрать факты о себе</h3>
+        <ul>
+          <li>Секундомер на 10 приёмах: сколько реально уходит на услугу и на каждый этап</li>
+          <li>Выгрузить из Dikidi: клиентов в месяц, средний чек, повторяемость</li>
+          <li>Посчитать доход с Насти и себестоимость расходников на приём</li>
+          <li>Снять на видео два своих полных приёма — камера сверху на штативе</li>
+          <li>Сесть на 40 минут и выписать 15 пунктов: «что я делаю не так, как остальные»</li>
+        </ul>
+      </div>
+    </div>
+    <div class="step">
+      <div class="when">Недели 3–4<small>первый ученик</small></div>
+      <div>
+        <h3>Обучить Настю по-настоящему</h3>
+        <ul>
+          <li>Замерить время Насти на услугу — это точка «до»</li>
+          <li>Два занятия по 3 часа с конкретной целью по времени</li>
+          <li>Повторный замер через две недели — точка «после»</li>
+          <li>Записать, что именно объясняла и в каком порядке. Это черновик программы</li>
+          <li>Отдельно: список 15 знакомых мастеров (город, Екатеринбург, область) — просто список, без действий</li>
+        </ul>
+      </div>
+    </div>
+    <div class="step">
+      <div class="when">Месяц 2<small>кейсы</small></div>
+      <div>
+        <h3>Два бесплатных ученика и первый текст</h3>
+        <ul>
+          <li>Двум мастерам из списка — день постановки бесплатно, в обмен на замер, отзыв и съёмку</li>
+          <li>Собрать чек-лист на одну страницу: «7 причин, почему маникюр занимает два часа»</li>
+          <li>Завести Telegram-канал и дубль в VK. Формат — рабочий журнал, два поста в неделю</li>
+          <li>Вступить в 5–7 чатов мастеров Екатеринбурга и области. Отвечать, не продавать</li>
+          <li>Оформить статус, если ещё нет: самозанятость или ИП с кодом 85.41; сделать шаблон договора и акта</li>
+        </ul>
+      </div>
+    </div>
+    <div class="step">
+      <div class="when">Месяц 3<small>первые деньги</small></div>
+      <div>
+        <h3>Продажа и партнёрство</h3>
+        <ul>
+          <li>Продать 2 индивидуальных дня по 10–12 тыс. ₽ — стартовая цена с уже готовыми кейсами</li>
+          <li>Договориться с одним магазином материалов о совместном бесплатном мини-МК на 6–10 человек</li>
+          <li>Провести один бесплатный онлайн-эфир на 30–40 минут для собравшейся базы</li>
+          <li>Ввести бесплатную диагностику по видео — 20 минут, по заявке из канала</li>
+          <li>Поднять свой прайс до 2 000 ₽, оставив Настю на 1 400 ₽ как вход</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="verdict">
+      <span class="tag">Точка проверки на 90-м дне</span>
+      <p>Должно быть: 3–5 кейсов с цифрами, 1 партнёр-магазин, 1 чек-лист, 1 канал, 20–60 тыс. ₽ дополнительного дохода. Если <strong>ни один мастер не заплатил деньги</strong> — школу не строим. Возвращаемся, разбираем почему (не та тема? не та аудитория? непонятный результат?) и пересобираем предложение. Это нормальный исход эксперимента, а не провал.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 15 -->
+<section id="gody">
+  <div class="shead"><span class="snum">15</span><h2>Год и три года</h2></div>
+  <div class="col">
+    <h3>К концу первого года</h3>
+    <ul class="dash">
+      <li>15–20 учеников суммарно, 3–4 в месяц, цена дошла до 15–18 тыс. ₽</li>
+      <li>Программа на бумаге: темы, часы, измеримый результат. Свой бланк сертификата</li>
+      <li>Первая мини-группа из трёх человек проведена</li>
+      <li>Регулярный день в Екатеринбурге раз в месяц</li>
+      <li>Канал: 500–1500 подписчиков-мастеров. Не блогер — узкий профессиональный канал</li>
+      <li>Аня сократила приём до 4 дней в неделю. Доход вырос, а не упал</li>
+      <li>Отснято 20+ часов сырья для будущего курса — как побочный продукт занятий</li>
+    </ul>
+
+    <h3>К концу третьего года</h3>
+    <ul class="dash">
+      <li>2–3 приёмных дня в неделю. Кресло — источник практики, контента и стабильных денег, а не основной доход</li>
+      <li>8–10 учеников в месяц, из них часть — онлайн, из других регионов и стран</li>
+      <li>Записанный курс продаётся сам, 20–40 продаж в месяц не требуют её времени</li>
+      <li>У метода есть название. Есть 3–5 мастеров, которые называют себя её учениками публично</li>
+      <li>Второе кресло сдаётся в аренду, а не управляется</li>
+      <li>Доход 350–400 тыс. ₽ в месяц при вдвое меньшем времени в кресле</li>
+      <li>Переезд в любую страну означает потерю услуговой части (~25% дохода) и ничего больше</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 16 -->
+<section id="ne">
+  <div class="shead"><span class="snum">16</span><h2>Чего делать не нужно</h2></div>
+  <div class="stopgrid">
+    <div class="stop"><b>Не бросать приём клиентов</b><span>Кресло даёт деньги, практику, кейсы и материал для контента. Оно уходит последним и не полностью</span></div>
+    <div class="stop"><b>Не покупать инструкторский курс</b><span>86–193 тыс. ₽ за разрешение, которое не требуется по закону. Вернуться к вопросу после 20 учеников</span></div>
+    <div class="stop"><b>Не открывать школу и не снимать помещение</b><span>Первые два года всё помещается в её кабинет, чужой зал и Zoom</span></div>
+    <div class="stop"><b>Не нанимать мастеров ради масштаба</b><span>~30 тыс. ₽ в месяц за роль начальницы. Аренда кресла лучше найма</span></div>
+    <div class="stop"><b>Не делать сайт</b><span>Мастера ищут преподавателей в чатах, у поставщиков и по рекомендации, а не в поиске</span></div>
+    <div class="stop"><b>Не запускать большой курс до 10 живых учеников</b><span>Программу пишет практика, а не наоборот</span></div>
+    <div class="stop"><b>Не вкладывать в таргет</b><span>Пока нет офера с цифрами, реклама просто сожжёт деньги. И в Instagram она с 2025 года прямо запрещена</span></div>
+    <div class="stop"><b>Не учить с нуля в своём городе</b><span>Это производство конкурентов на своём же рынке услуг</span></div>
+    <div class="stop"><b>Не становиться блогером</b><span>Нужен узкий профессиональный канал для мастеров, а не личный блог с рилсами</span></div>
+    <div class="stop"><b>Не работать бесплатно больше трёх раз</b><span>Первые три ученика — за кейс. Четвёртый уже платит, даже если мало</span></div>
+  </div>
+</section>
+
+<!-- 17 -->
+<section id="riski">
+  <div class="shead"><span class="snum">17</span><h2>Ключевые риски</h2></div>
+  <div class="scroller">
+    <table>
+      <thead><tr><th class="rowname">Риск</th><th>Насколько вероятен</th><th>Что делаем</th></tr></thead>
+      <tbody>
+        <tr><td class="rowname">Обучаем собственных конкурентов</td><td>Высокий в Полевском, низкий за его пределами</td><td>Базовое обучение в своём городе не проводим вообще. Повышение квалификации — только действующим мастерам, преимущественно из других городов</td></tr>
+        <tr><td class="rowname">Настя уходит с методикой</td><td>Средний</td><td>Это нормально и неизбежно. Смягчение: сделать её первым публичным кейсом и ассистентом на мини-группах — уходить от роли соавтора дороже, чем от роли наёмного мастера</td></tr>
+        <tr><td class="rowname">Выгорание: обучение сверху полной записи</td><td>Высокий</td><td>Жёсткое правило: учебный день заменяет приёмный, а не добавляется к нему. Доход в первые месяцы почти не растёт — это плата за переход, её надо заранее принять</td></tr>
+        <tr><td class="rowname">Спроса на обучение нет</td><td>Средний</td><td>Проверяется за 90 дней и почти без денег. Если не покупают — возвращаемся к стратегии A и премиальным услугам, потеряв три месяца и 15 тысяч</td></tr>
+        <tr><td class="rowname">Падает качество услуг</td><td>Средний</td><td>Минимум два приёмных дня в неделю всегда. Преподаватель, который перестал работать руками, за два года теряет право говорить</td></tr>
+        <tr><td class="rowname">Регуляторные</td><td>Низкий, но дешёвый в профилактике</td><td>Реклама в Instagram запрещена — не рекламироваться там. Канал от 10 тыс. подписчиков — регистрировать в РКН. Договор и акт с каждым учеником</td></tr>
+        <tr><td class="rowname">Зависимость от одного канала</td><td>Средний</td><td>Всегда два партнёра-магазина, а не один. Свой канал ведём с первого месяца, чтобы база была своя</td></tr>
+        <tr><td class="rowname">Аня не хочет — хочет Денис</td><td>Главный риск проекта</td><td>Первые 90 дней стоят почти ноль денег именно поэтому. Если после первого ученика ей не понравилось — стратегия A честнее и лучше, чем медленно угасающая школа</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- 18 -->
+<section id="shagi">
+  <div class="shead"><span class="snum">18</span><h2>Если бы Аня была моим клиентом — 10 шагов</h2></div>
+  <ol class="actions">
+    <li>Замерить секундомером своё время на услугу и время Насти. Записать обе цифры на бумаге.</li>
+    <li>Снять на видео два своих полных приёма сверху. Это одновременно материал для методики и первый контент.</li>
+    <li>Выписать 15 пунктов «что я делаю не так, как остальные». Это черновик методики, и он уже существует в её голове.</li>
+    <li>Обучить Настю по этому списку за два занятия и замерить результат. Первый кейс.</li>
+    <li>Взять двух знакомых мастеров бесплатно на день постановки — за замер, отзыв и разрешение снимать. Кейсы два и три.</li>
+    <li>Сделать чек-лист на одну страницу и завести профессиональный канал в Telegram с дублем в VK. Два поста в неделю, только по делу.</li>
+    <li>Продать первый платный день за 10–12 тыс. ₽. Дальше цена растёт с каждым новым кейсом.</li>
+    <li>Договориться с магазином материалов о совместном бесплатном мини-МК. Это главный источник учеников на первый год.</li>
+    <li>Поднять свой прайс до 2 000 ₽, оставив Настю на 1 400 ₽ — сделать уровни явными для клиента.</li>
+    <li>На 90-й день сесть с цифрами и решить: продолжаем или честно возвращаемся к сильному кабинету. Без самообмана в обе стороны.</li>
+  </ol>
+  <div class="col">
+    <h3 style="margin-top:36px">Две альтернативы, которые стоит держать в запасе</h3>
+    <p><strong>Запасной вариант 1 — премиальный кабинет (стратегия A).</strong> Если обучение не пойдёт или Ане оно не понравится: узкая специализация на сложных случаях и исправлении чужих работ, прайс 2 500–3 000 ₽, 50–60 клиентов в месяц вместо 95. Доход тот же, часов меньше, риска ноль. Это не поражение, это честный выбор образа жизни.</p>
+    <p><strong>Запасной вариант 2 — преподаватель бренда.</strong> Если своя воронка учеников не собирается, но обучать нравится: войти преподавателем в бренд материалов и получать поток от них. Меньше свободы и маржи, зато не нужно самой добывать учеников. Хороший вариант для человека, который любит учить и не любит продавать.</p>
+  </div>
+</section>
+
+<footer>
+  <h4>Источники и данные</h4>
+  <p>Прайс, рейтинг и состав мастеров — публичный профиль Anik_nails в Dikidi (сентябрь 2026). Цены конкурента — публичный профиль салона КОКОС, Полевской. Рынок обучения — Nail Couture (Екатеринбург), Первый профессиональный институт эстетики (Екатеринбург), НЦПО. Юридическая часть — закон «Об образовании», разборы Т—Ж и профильных юридических практик. Соцсети и реклама — данные eLama за 2026 год и закон о запрете рекламы в Instagram и Facebook от 1 сентября 2025 года. Международная часть — материалы по трудовому законодательству Индонезии, Existenzgründungsportal (Германия), обзор требований к лицензии nail technician по штатам США. История E.Mi — РБК+ и профильные отраслевые материалы.</p>
+  <p style="margin-top:14px">Все финансовые расчёты — оценочные, построены на публичном прайсе и явно обозначенных допущениях. Перед принятием решений проверить фактические цифры по записи и расходникам.</p>
+</footer>
+
+</div>
+
+</body></html>
